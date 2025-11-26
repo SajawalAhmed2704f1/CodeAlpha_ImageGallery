@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Kodchasan", sans-serif;
+
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #2B2B2B, #000000);
+            min-height: 100vh;
+            /* margin-bottom: 150px !important; */
+        }
+
+        .containers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            margin-top: 150px;
+            min-height: calc(100vh - 100px);
+        }
+
+        .containers div {
+            flex: 0 0 400px;
+        }
+
+        .imagecont {
+            width: 100%;
+            overflow: hidden;
+            height: 300px;
+            border: 1px solid white;
+        }
+
+        .imagecont img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            border-bottom: 1px;
+        }
+
+        .imagecont img:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .imagename {
+            text-align: center;
+            color: rgb(255, 255, 255);
+            /* margin-top: 10px; */
+            padding: 10px 0px 10px 0px;
+            font-weight: 500;
+            font-size: 25px;
+            background-color: rgba(0, 0, 0, 0.554);
+            border: 1px solid white;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        .pbtn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .active-btn {
+            background-color: #57a643 !important;
+            color: white;
+        }
+
+        .offcanvas {
+            background-color: rgba(35, 35, 35, 0.372) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            z-index: 100;
+            width: 95%;
+            position: fixed !important;
+            top: 40px;
+            left: 2.5%;
+            /* background:linear-gradient(20deg, #3007697b, #003b3b9b) !important; */
+            background-color: rgba(255, 255, 255, 0.127) !important;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-link,
+        .navbar-brand {
+            color: white !important;
+        }
+
+        .nav-item:hover,
+        .active {
+            background-color: white !important;
+            border-radius: 10px;
+            color: #000000 !important;
+        }
+
+        .nav-item:hover a {
+            color: #000000 !important;
+            font-weight: 500 !important;
+
+        }
+
+        .active a {
+            font-weight: 600 !important;
+            color: #000000 !important;
+        }
+
+        @media (max-width : 1000px) {
+            .navbar-collapse {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .nav-link {
+                padding-left: 20px !important;
+            }
+        }
+
+        @media (max-width : 800px) {
+            .containers div {
+                flex: 0 0 90%;
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- ============ NAVBAR ============  -->
+    <header>
+        <nav class="navbar  navbar-expand-lg  ps-3 pe-3 rounded-3">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-2 fw-bold" href="#">Image Gallery</a>
+                <button class="navbar-toggler bg-body" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav ms-auto gap-4 fs-5">
+                        <li class="nav-item active">
+                            <a class="nav-link" aria-current="page">All Items </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link ">Animals</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link">Cars</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link">Nature</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link">Universe</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- ============ IMAGE GALLERY CONTAINER ============  -->
+
+    <section class="containers"></section>
+
+    <!-- ============ PAGINATION CONTAINER ============  -->
+    <section class="pagination-container mb-5"></section>
+
+    <!-- ============ OFFCANVAS IMAGE BOX ============  -->
+
+    <div class="offcanvas offcanvas-top vh-100 p-3" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close bg-body" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body align-content-center d-flex justify-content-center">
+            <img src="Moon.webp" class="canvasimage">
+        </div>
+    </div>
+
+    <!-- ============ Footer ============  -->
+    <section class="text-center bg-white p-3 ">
+        <h4>© Image Gallery - Sajawal Ahmed 2025</h4>
+        <p class="mb-0"><a href="https://sajawalahmed-portfolio.netlify.app/" target="_blank">Sajawal Ahmed
+                Portfolio</a></p>
+    </section>
+
+    <script>
+
+        // Image Data By Assoiative Array 
+        const images = [
+            [name => "images/Nature1.webp", alt => "NatureImage", PicName => "Beautifull Natural Scenery ", category => "Nature"],
+            [name => "images/Nature2.webp", alt => "NatureImage", PicName => "Beautifull Mountain Area", category => "Nature"],
+            [name => "images/Astronomers.webp", alt => "Universe Images", PicName => "Astronomers", category => "Universe"],
+            [name => "images/Nature3.webp", alt => "NatureImage", PicName => "Forest Adventure", category => "Nature"],
+            [name => "images/Nature4.jpg", alt => "NatureImage", PicName => "Village Mountains", category => "Nature"],
+            [name => "images/car4.jpg", alt => "Car imagese", PicName => "Blue Audi", category => "car"],
+            [name => "images/Nature5.jpg", alt => "NatureImage", PicName => "Ice Mountains ", category => "Nature"],
+            [name => "images/Moon.webp", alt => "Universe Images", PicName => "Moon", category => "Universe"],
+            [name => "images/Nature6.jpg", alt => "NatureImage", PicName => "Village ", category => "Nature"],
+            [name => "images/colourfullparrot.jpg", alt => "Animal Images", PicName => "Parrot Bird", category => "Animal"],
+            [name => "images/Nature7.jpg", alt => "NatureImage", PicName => "Farm", category => "Nature"],
+            [name => "images/Nature8.jpg", alt => "NatureImage", PicName => "Green Scenery", category => "Nature"],
+            [name => "images/car8.jpg", alt => "Car images", PicName => "Roll Royece", category => "car"],
+            [name => "images/Nature9.jpg", alt => "NatureImage", PicName => "Rain Flower", category => "Nature"],
+            [name => "images/Nature10.jpg", alt => "NatureImage", PicName => "Tree", category => "Nature"],
+            [name => "images/Bear.Webp", alt => "Animal Images", PicName => "Black Bear", category => "Animal"],
+            [name => "images/car1.jpg", alt => "Car images", PicName => "BMW 5", category => "car"],
+            [name => "images/spaceship.jpg", alt => "Universe Images", PicName => "Spaceship", category => "Universe"],
+            [name => "images/car2.webp", alt => "Car images", PicName => "Red Buggati", category => "car"],
+            [name => "images/car3.webp", alt => "Car images", PicName => "Red Suzuki Swift", category => "car"],
+            [name => "images/car5.jpeg", alt => "Car images", PicName => "Blue BMW", category => "car"],
+            [name => "images/dog.jpg", alt => "Animal Images", PicName => "Dog", category => "Animal"],
+            [name => "images/car6.webp", alt => "Car images", PicName => "Yellow Ferari", category => "car"],
+            [name => "images/rabbit.webp", alt => "Animal Images", PicName => "White Rabbit", category => "Animal"],
+            [name => "images/car7.webp", alt => "Car images", PicName => "Sport Car", category => "car"],
+            [name => "images/car9.jpg", alt => "Car images", PicName => "King Sports ", category => "car"],
+            [name => "images/space1.jpg", alt => "Universe Images", PicName => "Universe", category => "Universe"],
+            [name => "images/car10.webp", alt => "Car images", PicName => "Hinda vegan", category => "car"],
+            [name => "images/Panda.jpg", alt => "Animal Images", PicName => "Panda", category => "Animal"],
+            [name => "images/car11.jpg", alt => "Car Image", PicName => "Red Falcon H2s ", category => "car"],
+            [name => "images/tiger.jpg", alt => "Animal Images", PicName => "TIger", category => "Animal"],
+            [name => "images/car12.webp", alt => "Car images", PicName => "Buggati Expert", category => "car"],
+            [name => "images/elephant.png", alt => "Animal Images", PicName => "Sri lankan Elephant", category => "Animal"],
+            [name => "images/cow.webp", alt => "Animal Images", PicName => "Cow", category => "Animal"],
+            [name => "images/dear.png", alt => "Animal Images", PicName => "Dear", category => "Animal"],
+            [name => "images/Space human.webp", alt => "Universe Images", PicName => "Space Human", category => "Universe"],
+            [name => "images/whitebear.jfif", alt => "Animal Images", PicName => "White Bear", category => "Animal"],
+            [name => "images/Sun.jpg", alt => "Universe Images", PicName => "Sun", category => "Universe"],
+        ]
+
+
+
+        let selectedArray = images; // Complete array 
+        const container = document.querySelector('.containers'); // Image container
+        const paginationcontainer = document.querySelector('.pagination-container'); // Pagination container
+        const navItems = document.querySelectorAll('.nav-item'); // Nav items
+        let totalimage = 8;
+        let numberofpages = Math.ceil(selectedArray.length / totalimage); // Total pagination
+
+
+        // FILTER ARRAY BY CATEGORY 
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const category = item.innerText;
+                navItems.forEach(nav =>
+                    nav.classList.remove('active')
+                );
+                item.classList.add('active');
+                switch (category) {
+                    case 'All Items':
+                        selectedArray = images;
+                        numberofpages = Math.ceil(selectedArray.length / totalimage);
+                        paginationcontainer.innerHTML = "";
+                        container.innerHTML = "";
+                        paginatedItems(numberofpages)
+                        showimages(1)
+                        break;
+                    case 'Animals':
+                        selectedArray = images.filter(img => img[3]() === "Animal");
+                        numberofpages = Math.ceil(selectedArray.length / totalimage);
+                        paginationcontainer.innerHTML = "";
+                        container.innerHTML = "";
+                        paginatedItems(numberofpages)
+                        showimages(1)
+                        break;
+                    case 'Cars':
+                        selectedArray = images.filter(img => img[3]() === "car");
+                        numberofpages = Math.ceil(selectedArray.length / totalimage);
+                        paginationcontainer.innerHTML = "";
+                        container.innerHTML = "";
+                        paginatedItems(numberofpages)
+                        showimages(1)
+
+                        break;
+                    case 'Nature':
+                        selectedArray = images.filter(img => img[3]() === "Nature");
+                        numberofpages = Math.ceil(selectedArray.length / totalimage);
+                        paginationcontainer.innerHTML = "";
+                        container.innerHTML = "";
+                        paginatedItems(numberofpages)
+                        showimages(1)
+
+                        break;
+                    case 'Universe':
+                        selectedArray = images.filter(img => img[3]() === "Universe");
+                        numberofpages = Math.ceil(selectedArray.length / totalimage);
+                        paginationcontainer.innerHTML = "";
+                        container.innerHTML = "";
+                        paginatedItems(numberofpages)
+                        showimages(1)
+                        break;
+                }
+            });
+        });
+
+
+        let totalItems = selectedArray.length; // Total items
+        let itemsPerPage = 8; // Items per page
+        let currentindex = 1; // Default page index
+
+        // SHOW IMAGE IN CONTAINER
+        function showimages(page) {
+            container.innerHTML = ""
+            let start = (page - 1) * itemsPerPage
+            let end = start + itemsPerPage
+            let imagesslice = selectedArray.slice(start, end)
+            imagesslice.forEach(singleimg => {
+                const imagecont = document.createElement('div');
+                const imagecont1 = document.createElement('div');
+                const imagename = document.createElement('p');
+                const imagetag = document.createElement('img')
+                imagetag.src = singleimg[0]()
+                imagetag.alt = singleimg[1]()
+                imagetag.addEventListener('click', () => {
+                    const offcanvasImage = document.querySelector('.canvasimage');
+                    offcanvasImage.src =  singleimg[0]();
+                });
+                imagetag.setAttribute('loading', 'lazy');
+                imagetag.setAttribute('data-bs-toggle', 'offcanvas');
+                imagetag.setAttribute('data-bs-target', '#offcanvasTop');
+                imagetag.setAttribute('aria-controls', 'offcanvasTop');
+                imagename.innerText = singleimg[2]()
+                imagename.classList.add('imagename')
+                imagecont1.classList.add('imagecont')
+                imagecont.appendChild(imagecont1)
+                imagecont1.appendChild(imagetag)
+                imagecont.appendChild(imagename)
+                container.appendChild(imagecont)
+
+            });
+        }
+
+        // SHOW BUTTON IN PAGINATION BOX
+        function paginatedItems(numberofpages) {
+            for (let i = 1; i <= numberofpages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.innerText = i;
+                pageButton.classList.add('pbtn');
+                paginationcontainer.appendChild(pageButton);
+            }
+            const pageButton = paginationcontainer.querySelectorAll('.pbtn');
+            pageButton[0].classList.add('active-btn');
+            pageButton.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    pageButton.forEach(button => button.classList.remove('active-btn'));
+                    btn.classList.add('active-btn');
+                    currentindex = btn.innerText;
+                    showimages(currentindex)
+                });
+            });
+
+        }
+
+        showimages(currentindex)
+        paginatedItems(numberofpages);
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
